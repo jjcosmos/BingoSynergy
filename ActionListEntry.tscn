@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://di6igc63dsd1j"]
+
+[ext_resource type="Script" path="res://ActionListEntry.cs" id="1_do2fs"]
+
+[node name="ActionListEntry" type="Control" node_paths=PackedStringArray("_label", "_removeSelfButton")]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_do2fs")
+_label = NodePath("ColorRect/ActionNameLabel")
+_removeSelfButton = NodePath("ColorRect/RemoveButton")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.27451, 0.27451, 0.27451, 1)
+
+[node name="RemoveButton" type="Button" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -71.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Remove"
+
+[node name="ActionNameLabel" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Action Entry Item"

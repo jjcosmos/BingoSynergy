@@ -1,0 +1,131 @@
+[gd_scene load_steps=5 format=3 uid="uid://xdu71b4us6mg"]
+
+[ext_resource type="Script" path="res://SynergyApp.cs" id="1_3qap0"]
+[ext_resource type="Script" path="res://BingoView.cs" id="2_perh1"]
+[ext_resource type="PackedScene" uid="uid://b1wu5sb1jute6" path="res://BingoSquare.tscn" id="3_ap3jo"]
+[ext_resource type="PackedScene" uid="uid://dgmerl7dky88s" path="res://goal_dep_editor.tscn" id="4_i2o1d"]
+
+[node name="Node2D" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AppController" type="Node" parent="."]
+script = ExtResource("1_3qap0")
+
+[node name="BingoView" type="Node" parent="." node_paths=PackedStringArray("_createBoardButton", "_dimsEdit", "_gridContainer", "_analyzeButton", "_testFillButton", "_dependencyEditorButton", "_colorButtonLow", "_colorButtonHigh", "_dependencyEditor", "_boardView")]
+script = ExtResource("2_perh1")
+_createBoardButton = NodePath("../BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer/CreateBoardButton")
+_dimsEdit = NodePath("../BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer/HBoxContainer/LineEdit")
+_gridContainer = NodePath("../BingoViewUI/VBoxContainer2/GridContainer")
+_squareScene = ExtResource("3_ap3jo")
+_analyzeButton = NodePath("../BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer/AnalyzeButton")
+_testFillButton = NodePath("../BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer/TestButton")
+_dependencyEditorButton = NodePath("../BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer/DepEditorButton")
+_colorButtonLow = NodePath("../BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer/ColorPickerButtonLow")
+_colorButtonHigh = NodePath("../BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer/ColorPickerButtonHigh")
+_dependencyEditor = NodePath("../GoalDepEditor")
+_boardView = NodePath("../BingoViewUI")
+
+[node name="BingoViewUI" type="Control" parent="."]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BingoViewUI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 900.0
+grow_horizontal = 2
+
+[node name="ColorRect" type="ColorRect" parent="BingoViewUI/VBoxContainer2"]
+custom_minimum_size = Vector2(50, 80.495)
+layout_mode = 2
+color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[node name="VBoxContainer" type="HBoxContainer" parent="BingoViewUI/VBoxContainer2/ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -222.0
+offset_top = 28.55
+offset_right = 222.0
+offset_bottom = 68.55
+grow_horizontal = 2
+
+[node name="CreateBoardButton" type="Button" parent="BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Create Board"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "L/W:"
+
+[node name="LineEdit" type="LineEdit" parent="BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "5"
+placeholder_text = "5"
+max_length = 2
+
+[node name="AnalyzeButton" type="Button" parent="BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Analyze"
+
+[node name="TestButton" type="Button" parent="BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Test"
+
+[node name="ColorPickerButtonLow" type="ColorPickerButton" parent="BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+color = Color(0.937255, 0, 0.0862745, 1)
+
+[node name="Label" type="Label" parent="BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "->"
+
+[node name="ColorPickerButtonHigh" type="ColorPickerButton" parent="BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+color = Color(0, 0.823529, 0.2, 1)
+
+[node name="DepEditorButton" type="Button" parent="BingoViewUI/VBoxContainer2/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Edit Dependencies"
+
+[node name="Label" type="Label" parent="BingoViewUI/VBoxContainer2/ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -117.5
+offset_right = 117.5
+offset_bottom = 26.0
+grow_horizontal = 2
+text = "Reeds' Bingo Synergy Analyzer"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="BingoViewUI/VBoxContainer2"]
+custom_minimum_size = Vector2(1000, 816)
+layout_mode = 2
+size_flags_vertical = 3
+columns = 5
+
+[node name="GoalDepEditor" parent="." instance=ExtResource("4_i2o1d")]
+visible = false
+layout_mode = 1

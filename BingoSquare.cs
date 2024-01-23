@@ -13,6 +13,7 @@ public partial class BingoSquare : Panel
     [Export] private Label _ratingLabel;
     [Export] private ColorRect _highlight;
     [Export] private Label _synergies;
+    [Export] private TextureRect _actionsIcon;
 
     private string _selectedGoal;
     //private BingoGoal[] _possibleSelections;
@@ -57,7 +58,7 @@ public partial class BingoSquare : Panel
         var builder = new StringBuilder();
         foreach (var action in synergies.ToHashSet())
         {
-            builder.AppendLine($"-{action}");
+            builder.Append($"*{action}\n");
         }
 
         //_synergies.Text = builder.ToString();
@@ -98,5 +99,7 @@ public partial class BingoSquare : Panel
         _filter.Text = _selectedGoal;
         var goalOptions = BingoView.Singleton.UserData.BingoGoals;
         _optionButton.Select( _optionButton.GetItemIndex(goalOptions.IndexOf(bingoGoal)));
+
+        _actionsIcon.TooltipText = string.Join("\n", BingoView.Singleton.UserData.BingoDeps[bingoGoal]);
     }
 }

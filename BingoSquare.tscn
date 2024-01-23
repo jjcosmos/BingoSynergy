@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1wu5sb1jute6"]
+[gd_scene load_steps=3 format=3 uid="uid://b1wu5sb1jute6"]
 
 [ext_resource type="Script" path="res://BingoSquare.cs" id="1_b22v5"]
+[ext_resource type="Texture2D" uid="uid://df34jr26fv5tf" path="res://Tex/GraphIcon.png" id="2_6lk1d"]
 
-[node name="Control" type="Panel" node_paths=PackedStringArray("_filter", "_optionButton", "_ratingLabel", "_highlight", "_synergies")]
+[node name="Control" type="Panel" node_paths=PackedStringArray("_filter", "_optionButton", "_ratingLabel", "_highlight", "_synergies", "_actionsIcon")]
 custom_minimum_size = Vector2(100, 100)
 offset_right = 100.0
 offset_bottom = 100.0
@@ -12,6 +13,7 @@ _optionButton = NodePath("HBoxContainer/OptionButton")
 _ratingLabel = NodePath("Label")
 _highlight = NodePath("ColorRect")
 _synergies = NodePath("Synergies")
+_actionsIcon = NodePath("ActionsIcon")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -67,3 +69,17 @@ theme_override_font_sizes/font_size = 8
 vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 3
+
+[node name="ActionsIcon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("2_6lk1d")
+expand_mode = 4

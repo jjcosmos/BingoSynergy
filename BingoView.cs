@@ -180,9 +180,9 @@ public partial class BingoView : Node
             instancedSquare.QueueFree();
         }
 
-        var width = (_gridSize / value) - 1;
-        _gridContainer.AddThemeConstantOverride("h_separation",0);
-        _gridContainer.AddThemeConstantOverride("v_separation",0);
+        var width = (_gridSize / value) - (_gridContainer.Columns + 1);
+        _gridContainer.AddThemeConstantOverride("h_separation",1);
+        _gridContainer.AddThemeConstantOverride("v_separation",1);
         _instancedSquares.Clear();
 
         for (var i = 0; i < value * value; i++)

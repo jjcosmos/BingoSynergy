@@ -25,6 +25,7 @@ public partial class BingoView : Node
     private List<BingoSquare> _instancedSquares = new();
 
     public static BingoView Singleton;
+    public UserData UserData;
 
     public override void _Ready()
     {
@@ -35,6 +36,8 @@ public partial class BingoView : Node
         _gridSize = MathF.Min(_gridContainer.Size.X, _gridContainer.Size.Y);
 
         Singleton = this;
+        UserData = new UserData();
+        UserData.ReadFilesFromDisk();
 
         //var userData = new UserData();
         //userData.MigrateFromCSource();
@@ -57,6 +60,7 @@ public partial class BingoView : Node
     {
         _boardView.Visible = mode == Mode.BoardView;
         _dependencyEditor.Visible = mode == Mode.DependencyEditorView;
+        UserData.ReadFilesFromDisk();
     }
 
     /*private void WriteJsonToDisk()
@@ -92,8 +96,9 @@ public partial class BingoView : Node
         var rand = new RandomNumberGenerator();
         if (_instancedSquares.Count > 0)
         {
-            var shuffled = BingoSquare.EnumOptions.OrderBy(x => rand.Randi())
-                .Where(x => x != BingoGoal.None)
+            var goalOptions = BingoView.Singleton.UserData.BingoGoals;
+            var shuffled = goalOptions.OrderBy(x => rand.Randi())
+                .Where(x => x != "None")
                 .ToList();
             for (var index = 0; index < _instancedSquares.Count; index++)
             {
@@ -107,7 +112,7 @@ public partial class BingoView : Node
     {
         var dim = _gridContainer.Columns;
 
-        if (_instancedSquares.Any(x => x.GetGoal() == BingoGoal.None))
+        if (_instancedSquares.Any(x => x.GetGoalStr() == "None"))
         {
             GD.PrintErr("All Squares must be valid");
             return;

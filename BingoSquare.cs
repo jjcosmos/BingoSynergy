@@ -14,7 +14,7 @@ public partial class BingoSquare : Panel
     [Export] private ColorRect _highlight;
     [Export] private Label _synergies;
 
-    private BingoGoal _selectedGoal;
+    private string _selectedGoal;
     //private BingoGoal[] _possibleSelections;
 
     public static readonly string[] _EnumOptionsAsStr = Enum.GetValues(typeof(BingoGoal))
@@ -35,7 +35,8 @@ public partial class BingoSquare : Panel
     private void OptionButtonOnItemSelected(long index)
     {
         var item = _optionButton.GetItemId((int)index);
-        _selectedGoal = EnumOptions[item];
+        var goalOptions = BingoView.Singleton.UserData.BingoGoals;
+        _selectedGoal = goalOptions[item];
         _filter.Text = _selectedGoal.ToString();
     }
 
@@ -75,9 +76,10 @@ public partial class BingoSquare : Panel
         
         _optionButton.Clear();
 
-        for (var index = 0; index < EnumOptionsAsStr.Length; index++)
+        var goalOptions = BingoView.Singleton.UserData.BingoGoals;
+        for (var index = 0; index < goalOptions.Count; index++)
         {
-            var enumOpt = EnumOptionsAsStr[index];
+            var enumOpt = goalOptions[index];
             if (string.IsNullOrWhiteSpace(newtext) || enumOpt.ToLower().Contains(newtext.ToLower()))
             {
                 _optionButton.AddItem(enumOpt, index);
@@ -85,19 +87,16 @@ public partial class BingoSquare : Panel
         }
     }
 
-    public BingoGoal GetGoal()
+    public string GetGoalStr()
     {
         return _selectedGoal;
     }
 
-    public string GetGoalStr()
-    {
-        return _selectedGoal.ToString();
-    }
-
-    public void SetGoal(BingoGoal bingoGoal)
+    public void SetGoal(string bingoGoal)
     {
         _selectedGoal = bingoGoal;
-        _filter.Text = _selectedGoal.ToString();
+        _filter.Text = _selectedGoal;
+        var goalOptions = BingoView.Singleton.UserData.BingoGoals;
+        _optionButton.Select( _optionButton.GetItemIndex(goalOptions.IndexOf(bingoGoal)));
     }
 }
